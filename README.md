@@ -18,7 +18,18 @@ limitations under the License.
 
 -->
 
-# Dispatch
+
+<details>
+  <summary>
+    About stdlib...
+  </summary>
+  <p>We believe in a future in which the web is a preferred environment for numerical computation. To help realize this future, we've built stdlib. stdlib is a standard library, with an emphasis on numerical and scientific computation, written in JavaScript (and C) for execution in browsers and in Node.js.</p>
+  <p>The library is fully decomposable, being architected in such a way that you can swap out and mix and match APIs and functionality to cater to your exact preferences and use cases.</p>
+  <p>When you use stdlib, you can be absolutely certain that you are using the most thorough, rigorous, well-written, studied, documented, tested, measured, and high-quality code out there.</p>
+  <p>To join us in bringing numerical computing to the web, get started by checking us out on <a href="https://github.com/stdlib-js/stdlib">GitHub</a>, and please consider <a href="https://opencollective.com/stdlib">financially supporting stdlib</a>. We greatly appreciate your continued support!</p>
+</details>
+
+# dispatchBy
 
 [![NPM version][npm-image]][npm-url] [![Build Status][test-image]][test-url] [![Coverage Status][coverage-image]][coverage-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
 
@@ -53,78 +64,17 @@ The [branches.md][branches-url] file summarizes the available branches and displ
 ## Usage
 
 ```javascript
-var dispatch = require( '@stdlib/ndarray-dispatch' );
+var dispatchBy = require( '@stdlib/ndarray-dispatch-by' );
 ```
 
-#### dispatch( fcns, types, data, nargs, nin, nout )
+#### dispatchBy( fcns, types, data, nargs, nin, nout )
 
 Returns an [ndarray][@stdlib/ndarray/ctor] function interface which performs multiple dispatch.
 
 <!-- eslint-disable array-element-newline -->
 
 ```javascript
-var unary = require( '@stdlib/ndarray-base-unary' );
-var Float64Array = require( '@stdlib/array-float64' );
-var Float32Array = require( '@stdlib/array-float32' );
-var ndarray = require( '@stdlib/ndarray-ctor' );
-
-function foo( x ) {
-    return x * 10.0;
-}
-
-function bar( x ) {
-    return x * 5.0;
-}
-
-// Define a list of ndarray functions for applying a unary callback:
-var fcns = [
-    unary,
-    unary
-];
-
-// Define a one-dimensional list of input and output array types:
-var types = [
-    'float64', 'float64', // input, output
-    'float32', 'float32'  // input, output
-];
-
-// Define a list of callbacks which should be applied based on the provided array types:
-var data = [
-    foo,
-    bar
-];
-
-// Define the total number of input arguments:
-var nargs = 2; // input_array + output_array
-
-// Define the number of input ndarrays:
-var nin = 1;
-
-// Define the number of output ndarrays:
-var nout = 1;
-
-// Create an ndarray function interface:
-var fcn = dispatch( fcns, types, data, nargs, nin, nout );
-
-// ...
-
-var xbuf = new Float64Array( [ 1.0, 2.0, 3.0 ] );
-var ybuf = new Float64Array( xbuf.length );
-
-var x = ndarray( 'float64', xbuf, [ 3 ], [ 1 ], 0, 'row-major' );
-var y = ndarray( 'float64', ybuf, [ 3 ], [ 1 ], 0, 'row-major' );
-
-fcn( x, y );
-// ybuf => <Float64Array>[ 10.0, 20.0, 30.0 ]
-
-xbuf = new Float32Array( [ 1.0, 2.0, 3.0 ] );
-ybuf = new Float32Array( xbuf.length );
-
-x = ndarray( 'float32', xbuf, [ 3 ], [ 1 ], 0, 'row-major' );
-y = ndarray( 'float32', ybuf, [ 3 ], [ 1 ], 0, 'row-major' );
-
-fcn( x, y );
-// ybuf => <Float32Array>[ 5.0, 10.0, 15.0 ]
+console.log( 'TODO' );
 ```
 
 The function accepts the following arguments:
@@ -174,7 +124,7 @@ The function accepts the following arguments:
     <!-- eslint-disable array-element-newline -->
 
     ```javascript
-    var unary = require( '@stdlib/ndarray-base-unary' );
+    var unary = require( '@stdlib/ndarray-base-unary-by' );
 
     function foo( x ) {
         return x * 10.0;
@@ -197,7 +147,7 @@ The function accepts the following arguments:
         bar
     ];
 
-    var fcn = dispatch( fcns, types, data, 2, 1, 1 );
+    var fcn = dispatchBy( fcns, types, data, 2, 1, 1 );
     ```
 
     is equivalent to
@@ -205,7 +155,7 @@ The function accepts the following arguments:
     <!-- eslint-disable array-element-newline -->
 
     ```javascript
-    var unary = require( '@stdlib/ndarray-base-unary' );
+    var unary = require( '@stdlib/ndarray-base-unary-by' );
 
     function foo( x ) {
         return x * 10.0;
@@ -224,7 +174,7 @@ The function accepts the following arguments:
         bar
     ];
 
-    var fcn = dispatch( unary, types, data, 2, 1, 1 );
+    var fcn = dispatchBy( unary, types, data, 2, 1, 1 );
     ```
 
 </section>
@@ -238,29 +188,7 @@ The function accepts the following arguments:
 <!-- eslint no-undef: "error" -->
 
 ```javascript
-var unary = require( '@stdlib/ndarray-base-unary' );
-var ndarray = require( '@stdlib/ndarray-ctor' );
-var abs = require( '@stdlib/math-base-special-abs' );
-var Float64Array = require( '@stdlib/array-float64' );
-var dispatch = require( '@stdlib/ndarray-dispatch' );
-
-var types = [ 'float64', 'float64' ];
-
-var data = [
-    abs
-];
-
-var absolute = dispatch( unary, types, data, 2, 1, 1 );
-
-var xbuf = new Float64Array( [ -1.0, -2.0, -3.0, -4.0, -5.0 ] );
-var ybuf = new Float64Array( [ 0.0, 0.0, 0.0, 0.0, 0.0 ] );
-
-var x = ndarray( 'float64', xbuf, [ 5 ], [ 1 ], 0, 'row-major' );
-var y = ndarray( 'float64', ybuf, [ 5 ], [ 1 ], 0, 'row-major' );
-
-absolute( x, y );
-console.log( ybuf );
-// => <Float64Array>[ 1.0, 2.0, 3.0, 4.0, 5.0 ]
+console.log( 'TODO' );
 ```
 
 </section>
@@ -321,8 +249,8 @@ Copyright &copy; 2016-2023. The Stdlib [Authors][stdlib-authors].
 [npm-image]: http://img.shields.io/npm/v/@stdlib/ndarray-dispatch-by.svg
 [npm-url]: https://npmjs.org/package/@stdlib/ndarray-dispatch-by
 
-[test-image]: https://github.com/stdlib-js/ndarray-dispatch-by/actions/workflows/test.yml/badge.svg?branch=main
-[test-url]: https://github.com/stdlib-js/ndarray-dispatch-by/actions/workflows/test.yml?query=branch:main
+[test-image]: https://github.com/stdlib-js/ndarray-dispatch-by/actions/workflows/test.yml/badge.svg?branch=v0.1.0
+[test-url]: https://github.com/stdlib-js/ndarray-dispatch-by/actions/workflows/test.yml?query=branch:v0.1.0
 
 [coverage-image]: https://img.shields.io/codecov/c/github/stdlib-js/ndarray-dispatch-by/main.svg
 [coverage-url]: https://codecov.io/github/stdlib-js/ndarray-dispatch-by?branch=main
