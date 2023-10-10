@@ -18,7 +18,18 @@ limitations under the License.
 
 -->
 
-# Dispatch
+
+<details>
+  <summary>
+    About stdlib...
+  </summary>
+  <p>We believe in a future in which the web is a preferred environment for numerical computation. To help realize this future, we've built stdlib. stdlib is a standard library, with an emphasis on numerical and scientific computation, written in JavaScript (and C) for execution in browsers and in Node.js.</p>
+  <p>The library is fully decomposable, being architected in such a way that you can swap out and mix and match APIs and functionality to cater to your exact preferences and use cases.</p>
+  <p>When you use stdlib, you can be absolutely certain that you are using the most thorough, rigorous, well-written, studied, documented, tested, measured, and high-quality code out there.</p>
+  <p>To join us in bringing numerical computing to the web, get started by checking us out on <a href="https://github.com/stdlib-js/stdlib">GitHub</a>, and please consider <a href="https://opencollective.com/stdlib">financially supporting stdlib</a>. We greatly appreciate your continued support!</p>
+</details>
+
+# dispatchBy
 
 [![NPM version][npm-image]][npm-url] [![Build Status][test-image]][test-url] [![Coverage Status][coverage-image]][coverage-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
 
@@ -30,109 +41,40 @@ limitations under the License.
 
 <!-- /.intro -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/ndarray-dispatch-by
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm` branch][esm-url].
+-   If you are using Deno, visit the [`deno` branch][deno-url].
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd` branch][umd-url].
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-dispatch = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/ndarray-dispatch@umd/browser.js' )
+var dispatchBy = require( '@stdlib/ndarray-dispatch-by' );
 ```
 
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var dispatch = require( 'path/to/vendor/umd/ndarray-dispatch/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/ndarray-dispatch@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.dispatch;
-})();
-</script>
-```
-
-#### dispatch( fcns, types, data, nargs, nin, nout )
+#### dispatchBy( fcns, types, data, nargs, nin, nout )
 
 Returns an [ndarray][@stdlib/ndarray/ctor] function interface which performs multiple dispatch.
 
 <!-- eslint-disable array-element-newline -->
 
 ```javascript
-var unary = require( '@stdlib/ndarray-base-unary' );
-var Float64Array = require( '@stdlib/array-float64' );
-var Float32Array = require( '@stdlib/array-float32' );
-var ndarray = require( '@stdlib/ndarray-ctor' );
-
-function foo( x ) {
-    return x * 10.0;
-}
-
-function bar( x ) {
-    return x * 5.0;
-}
-
-// Define a list of ndarray functions for applying a unary callback:
-var fcns = [
-    unary,
-    unary
-];
-
-// Define a one-dimensional list of input and output array types:
-var types = [
-    'float64', 'float64', // input, output
-    'float32', 'float32'  // input, output
-];
-
-// Define a list of callbacks which should be applied based on the provided array types:
-var data = [
-    foo,
-    bar
-];
-
-// Define the total number of input arguments:
-var nargs = 2; // input_array + output_array
-
-// Define the number of input ndarrays:
-var nin = 1;
-
-// Define the number of output ndarrays:
-var nout = 1;
-
-// Create an ndarray function interface:
-var fcn = dispatch( fcns, types, data, nargs, nin, nout );
-
-// ...
-
-var xbuf = new Float64Array( [ 1.0, 2.0, 3.0 ] );
-var ybuf = new Float64Array( xbuf.length );
-
-var x = ndarray( 'float64', xbuf, [ 3 ], [ 1 ], 0, 'row-major' );
-var y = ndarray( 'float64', ybuf, [ 3 ], [ 1 ], 0, 'row-major' );
-
-fcn( x, y );
-// ybuf => <Float64Array>[ 10.0, 20.0, 30.0 ]
-
-xbuf = new Float32Array( [ 1.0, 2.0, 3.0 ] );
-ybuf = new Float32Array( xbuf.length );
-
-x = ndarray( 'float32', xbuf, [ 3 ], [ 1 ], 0, 'row-major' );
-y = ndarray( 'float32', ybuf, [ 3 ], [ 1 ], 0, 'row-major' );
-
-fcn( x, y );
-// ybuf => <Float32Array>[ 5.0, 10.0, 15.0 ]
+console.log( 'TODO' );
 ```
 
 The function accepts the following arguments:
@@ -182,7 +124,7 @@ The function accepts the following arguments:
     <!-- eslint-disable array-element-newline -->
 
     ```javascript
-    var unary = require( '@stdlib/ndarray-base-unary' );
+    var unary = require( '@stdlib/ndarray-base-unary-by' );
 
     function foo( x ) {
         return x * 10.0;
@@ -205,7 +147,7 @@ The function accepts the following arguments:
         bar
     ];
 
-    var fcn = dispatch( fcns, types, data, 2, 1, 1 );
+    var fcn = dispatchBy( fcns, types, data, 2, 1, 1 );
     ```
 
     is equivalent to
@@ -213,7 +155,7 @@ The function accepts the following arguments:
     <!-- eslint-disable array-element-newline -->
 
     ```javascript
-    var unary = require( '@stdlib/ndarray-base-unary' );
+    var unary = require( '@stdlib/ndarray-base-unary-by' );
 
     function foo( x ) {
         return x * 10.0;
@@ -232,7 +174,7 @@ The function accepts the following arguments:
         bar
     ];
 
-    var fcn = dispatch( unary, types, data, 2, 1, 1 );
+    var fcn = dispatchBy( unary, types, data, 2, 1, 1 );
     ```
 
 </section>
@@ -245,40 +187,8 @@ The function accepts the following arguments:
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/ndarray-base-unary@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/ndarray-ctor@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/math-base-special-abs@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/ndarray-dispatch@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
-
-var types = [ 'float64', 'float64' ];
-
-var data = [
-    abs
-];
-
-var absolute = dispatch( unary, types, data, 2, 1, 1 );
-
-var xbuf = new Float64Array( [ -1.0, -2.0, -3.0, -4.0, -5.0 ] );
-var ybuf = new Float64Array( [ 0.0, 0.0, 0.0, 0.0, 0.0 ] );
-
-var x = ndarray( 'float64', xbuf, [ 5 ], [ 1 ], 0, 'row-major' );
-var y = ndarray( 'float64', ybuf, [ 5 ], [ 1 ], 0, 'row-major' );
-
-absolute( x, y );
-console.log( ybuf );
-// => <Float64Array>[ 1.0, 2.0, 3.0, 4.0, 5.0 ]
-
-})();
-</script>
-</body>
-</html>
+```javascript
+console.log( 'TODO' );
 ```
 
 </section>
@@ -371,11 +281,11 @@ Copyright &copy; 2016-2023. The Stdlib [Authors][stdlib-authors].
 
 <!-- <related-links> -->
 
-[@stdlib/ndarray/array]: https://github.com/stdlib-js/ndarray-array/tree/umd
+[@stdlib/ndarray/array]: https://github.com/stdlib-js/ndarray-array
 
-[@stdlib/ndarray/ctor]: https://github.com/stdlib-js/ndarray-ctor/tree/umd
+[@stdlib/ndarray/ctor]: https://github.com/stdlib-js/ndarray-ctor
 
-[@stdlib/ndarray/dtypes]: https://github.com/stdlib-js/ndarray-dtypes/tree/umd
+[@stdlib/ndarray/dtypes]: https://github.com/stdlib-js/ndarray-dtypes
 
 <!-- </related-links> -->
 
