@@ -48,7 +48,7 @@ limitations under the License.
 ## Usage
 
 ```javascript
-import dispatchBy from 'https://cdn.jsdelivr.net/gh/stdlib-js/ndarray-dispatch-by@esm/index.mjs';
+import dispatchBy from 'https://cdn.jsdelivr.net/gh/stdlib-js/ndarray-dispatch-by@v0.2.1-esm/index.mjs';
 ```
 
 #### dispatchBy( fcns, types, data, nargs, nin, nout )
