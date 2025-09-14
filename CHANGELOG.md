@@ -12,6 +12,7 @@
 
 <details>
 
+-   [`5dde2ff`](https://github.com/stdlib-js/stdlib/commit/5dde2ff115443aa143dd19022e5593e022401920) - **refactor:** use extended BLAS utility _(by Athan Reines)_
 -   [`5396232`](https://github.com/stdlib-js/stdlib/commit/539623214add7405c45c70f16ef7ab001f5dc0e0) - **refactor:** use base utility _(by Athan Reines)_
 -   [`3938b26`](https://github.com/stdlib-js/stdlib/commit/3938b265e603116448c89fcaa58df70e79d40f59) - **refactor:** update paths _(by Gururaj Gurram)_
 
